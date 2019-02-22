@@ -1,0 +1,75 @@
+﻿@model ResumeApp.Models.WorkExperience
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>WorkExperience</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.applicantID)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.applicantID)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.employer)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.employer)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.startDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.startDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.endDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.endDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.city)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.city)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.state)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.state)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.jobTitle)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.jobTitle)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.jobDescriptionId)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.jobDescriptionId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.isStillEmployed)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.isStillEmployed)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="workID" />
+        <input type="submit" value="Delete" class="btn btn-default" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>

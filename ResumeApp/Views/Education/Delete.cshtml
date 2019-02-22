@@ -1,0 +1,69 @@
+﻿@model ResumeApp.Models.Education
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Education</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.applicantID)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.applicantID)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.schoolName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.schoolName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.schoolCity)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.schoolCity)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.schoolState)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.schoolState)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.educationlevelId)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.educationlevelId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.fieldofStudy)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.fieldofStudy)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.startdate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.startdate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.enddate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.enddate)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="educationID" />
+        <input type="submit" value="Delete" class="btn btn-default" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>

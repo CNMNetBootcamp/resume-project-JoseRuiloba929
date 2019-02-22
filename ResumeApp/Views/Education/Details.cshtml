@@ -1,0 +1,66 @@
+﻿@model ResumeApp.Models.Education
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Education</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.applicantID)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.applicantID)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.schoolName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.schoolName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.schoolCity)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.schoolCity)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.schoolState)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.schoolState)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.educationlevelId)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.educationlevelId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.fieldofStudy)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.fieldofStudy)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.startdate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.startdate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.enddate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.enddate)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.educationID">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

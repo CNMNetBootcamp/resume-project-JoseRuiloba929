@@ -1,0 +1,60 @@
+﻿@model ResumeApp.Models.Reference
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Reference</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.applicantID)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.applicantID)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.referenceName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.referenceName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.referencePhone)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.referencePhone)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.referenceEmail)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.referenceEmail)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.firstMet)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.firstMet)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.relationshipType)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.relationshipType)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.yrsKnown)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.yrsKnown)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.referenceID">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

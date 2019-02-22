@@ -1,0 +1,69 @@
+﻿@model ResumeApp.Models.Education
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Edit</h2>
+
+<h4>Education</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="educationID" />
+            <div class="form-group">
+                <label asp-for="applicantID" class="control-label"></label>
+                <input asp-for="applicantID" class="form-control" />
+                <span asp-validation-for="applicantID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="schoolName" class="control-label"></label>
+                <input asp-for="schoolName" class="form-control" />
+                <span asp-validation-for="schoolName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="schoolCity" class="control-label"></label>
+                <input asp-for="schoolCity" class="form-control" />
+                <span asp-validation-for="schoolCity" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="schoolState" class="control-label"></label>
+                <input asp-for="schoolState" class="form-control" />
+                <span asp-validation-for="schoolState" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="educationlevelId" class="control-label"></label>
+                <input asp-for="educationlevelId" class="form-control" />
+                <span asp-validation-for="educationlevelId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="fieldofStudy" class="control-label"></label>
+                <input asp-for="fieldofStudy" class="form-control" />
+                <span asp-validation-for="fieldofStudy" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="startdate" class="control-label"></label>
+                <input asp-for="startdate" class="form-control" />
+                <span asp-validation-for="startdate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="enddate" class="control-label"></label>
+                <input asp-for="enddate" class="form-control" />
+                <span asp-validation-for="enddate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

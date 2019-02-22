@@ -1,0 +1,71 @@
+﻿@model IEnumerable<ResumeApp.Models.Reference>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.applicantID)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.referenceName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.referencePhone)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.referenceEmail)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.firstMet)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.relationshipType)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.yrsKnown)
+                </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.applicantID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.referenceName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.referencePhone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.referenceEmail)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.firstMet)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.relationshipType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.yrsKnown)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.referenceID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.referenceID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.referenceID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

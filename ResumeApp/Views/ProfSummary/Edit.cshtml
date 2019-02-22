@@ -1,0 +1,39 @@
+﻿@model ResumeApp.Models.ProfSummary
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Edit</h2>
+
+<h4>ProfSummary</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="profSummaryID" />
+            <div class="form-group">
+                <label asp-for="applicantID" class="control-label"></label>
+                <input asp-for="applicantID" class="form-control" />
+                <span asp-validation-for="applicantID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProfSum" class="control-label"></label>
+                <input asp-for="ProfSum" class="form-control" />
+                <span asp-validation-for="ProfSum" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

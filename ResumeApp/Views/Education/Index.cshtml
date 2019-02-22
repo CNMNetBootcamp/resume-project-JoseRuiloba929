@@ -1,0 +1,77 @@
+﻿@model IEnumerable<ResumeApp.Models.Education>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.applicantID)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.schoolName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.schoolCity)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.schoolState)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.educationlevelId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.fieldofStudy)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.startdate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.enddate)
+                </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.applicantID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.schoolName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.schoolCity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.schoolState)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.educationlevelId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.fieldofStudy)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.startdate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.enddate)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.educationID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.educationID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.educationID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -1,0 +1,63 @@
+﻿@model ResumeApp.Models.Reference
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Create</h2>
+
+<h4>Reference</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="applicantID" class="control-label"></label>
+                <input asp-for="applicantID" class="form-control" />
+                <span asp-validation-for="applicantID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="referenceName" class="control-label"></label>
+                <input asp-for="referenceName" class="form-control" />
+                <span asp-validation-for="referenceName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="referencePhone" class="control-label"></label>
+                <input asp-for="referencePhone" class="form-control" />
+                <span asp-validation-for="referencePhone" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="referenceEmail" class="control-label"></label>
+                <input asp-for="referenceEmail" class="form-control" />
+                <span asp-validation-for="referenceEmail" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="firstMet" class="control-label"></label>
+                <input asp-for="firstMet" class="form-control" />
+                <span asp-validation-for="firstMet" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="relationshipType" class="control-label"></label>
+                <input asp-for="relationshipType" class="form-control" />
+                <span asp-validation-for="relationshipType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="yrsKnown" class="control-label"></label>
+                <input asp-for="yrsKnown" class="form-control" />
+                <span asp-validation-for="yrsKnown" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

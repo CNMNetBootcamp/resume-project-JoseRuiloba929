@@ -1,0 +1,36 @@
+﻿@model ResumeApp.Models.SkillSet
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>SkillSet</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.applicantID)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.applicantID)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.skillsetType)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.skillsetType)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.skillSetRecord)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.skillSetRecord)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.skillsetID">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
