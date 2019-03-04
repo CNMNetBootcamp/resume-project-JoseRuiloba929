@@ -12,12 +12,6 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.applicantID)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.applicantID)
-        </dd>
-        <dt>
             @Html.DisplayNameFor(model => model.schoolName)
         </dt>
         <dd>
@@ -63,7 +57,7 @@
     
     <form asp-action="Delete">
         <input type="hidden" asp-for="educationID" />
-        <input type="submit" value="Delete" class="btn btn-default" /> |
-        <a asp-action="Index">Back to List</a>
+        <input type="submit" value="Delete" class="btn btn-default"/> |
+        <a asp-action="Index" asp-route-id="@ViewData["UsrID"]">Back to List</a>
     </form>
 </div>

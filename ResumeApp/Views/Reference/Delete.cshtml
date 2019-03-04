@@ -12,12 +12,6 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.applicantID)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.applicantID)
-        </dd>
-        <dt>
             @Html.DisplayNameFor(model => model.referenceName)
         </dt>
         <dd>
@@ -48,16 +42,16 @@
             @Html.DisplayFor(model => model.relationshipType)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.yrsKnown)
+            @Html.DisplayNameFor(model => model.YKnown)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.yrsKnown)
+            @Html.DisplayFor(model => model.YKnown)
         </dd>
     </dl>
     
     <form asp-action="Delete">
         <input type="hidden" asp-for="referenceID" />
         <input type="submit" value="Delete" class="btn btn-default" /> |
-        <a asp-action="Index">Back to List</a>
+        <a asp-action="Index" asp-route-id="@ViewData["UsrID"]">Back to List</a>
     </form>
 </div>

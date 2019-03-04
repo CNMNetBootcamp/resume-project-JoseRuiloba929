@@ -32,13 +32,13 @@
                 <ul class="nav navbar-nav">
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
                     <li><a asp-area="" asp-controller="Submitter" asp-action="Index">Applicant</a></li>
-                    <li><a asp-area="" asp-controller="ProfSummary" asp-action="Index">Professional Summary</a></li>
+                    @*<li><a asp-area="" asp-controller="ProfSummary" asp-action="Index">Professional Summary</a></li>
                     <li><a asp-area="" asp-controller="SkillSet" asp-action="Index">SkillSet</a></li>
                     <li><a asp-area="" asp-controller="WorkExperience" asp-action="Index">WorkExperience</a></li>
                     <li><a asp-area="" asp-controller="Education" asp-action="Index">Education</a></li>
                     <li><a asp-area="" asp-controller="Reference" asp-action="Index">Reference</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>*@
                 </ul>
                 @await Html.PartialAsync("_LoginPartial")
             </div>

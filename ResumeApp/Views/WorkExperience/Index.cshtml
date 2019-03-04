@@ -4,80 +4,72 @@
     ViewData["Title"] = "Index";
 }
 
-<h2>Index</h2>
+<h2>Employment Experience</h2>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" asp-route-id="@ViewData["UsrID"]">Create New</a>
 </p>
 <table class="table">
     <thead>
         <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.applicantID)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.employer)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.startDate)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.endDate)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.city)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.state)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.jobTitle)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.jobDescriptionId)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.isStillEmployed)
-                </th>
+            <th>
+                @Html.DisplayNameFor(model => model.employer)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.startDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.endDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.city)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.state)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.jobTitle)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.isStillEmployed)
+            </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.applicantID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.employer)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.startDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.endDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.city)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.state)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.jobTitle)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.jobDescriptionId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.isStillEmployed)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.workID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.workID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.workID">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.employer)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.startDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.endDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.city)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.state)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.jobTitle)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.isStillEmployed)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.workID">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.workID">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.workID">Delete</a> |
+                    <a asp-area="" asp-controller="JobDescription" asp-action="Index" asp-route-id="@item.workID">Experience Detail</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+<a asp-controller="Submitter" asp-action="Index">Return to Applicant Screen</a>
+

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -20,9 +21,12 @@ namespace ResumeApp.Controllers
         }
 
         // GET: JobDescription
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int id)
         {
-            return View(await _context.JobDescriptions.ToListAsync());
+            var jobContext = _context.JobDescriptions.Include(j => j.WorkExperience).
+                OrderBy(j => j.sortOrder).Where(j=>j.workID==id);
+            ViewData["workID"] = id;
+            return View(await jobContext.ToListAsync());
         }
 
         // GET: JobDescription/Details/5
@@ -34,7 +38,9 @@ namespace ResumeApp.Controllers
             }
 
             var jobDescription = await _context.JobDescriptions
+                .Include(j => j.WorkExperience)
                 .SingleOrDefaultAsync(m => m.jobDescriptionId == id);
+            ViewData["workID"] = jobDescription.workID;
             if (jobDescription == null)
             {
                 return NotFound();
@@ -44,8 +50,9 @@ namespace ResumeApp.Controllers
         }
 
         // GET: JobDescription/Create
-        public IActionResult Create()
+        public IActionResult Create(int id)
         {
+            ViewData["workID"] = id;
             return View();
         }
 
@@ -54,15 +61,17 @@ namespace ResumeApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("jobDescriptionId,jobExperience")] JobDescription jobDescription)
+        public async Task<IActionResult> Create([Bind("jobDescriptionId,workID,sortOrder,jobExperience")] JobDescription jobDescription)
         {
             if (ModelState.IsValid)
             {
                 _context.Add(jobDescription);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                ViewData["workID"] = jobDescription.workID;
+                return RedirectToAction(nameof(Index), new { id = jobDescription.workID });
             }
-            return View(jobDescription);
+            
+            return ViewComponent(nameof(Index), new { id = jobDescription.workID }); 
         }
 
         // GET: JobDescription/Edit/5
@@ -78,6 +87,7 @@ namespace ResumeApp.Controllers
             {
                 return NotFound();
             }
+            ViewData["workID"] = jobDescription.workID;
             return View(jobDescription);
         }
 
@@ -86,8 +96,9 @@ namespace ResumeApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("jobDescriptionId,jobExperience")] JobDescription jobDescription)
+        public async Task<IActionResult> Edit(int id, [Bind("jobDescriptionId,workID,jobExperience, sortOrder")] JobDescription jobDescription)
         {
+            ViewData["workID"] = jobDescription.workID;
             if (id != jobDescription.jobDescriptionId)
             {
                 return NotFound();
@@ -111,9 +122,9 @@ namespace ResumeApp.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index), new { id = jobDescription.workID });
             }
-            return View(jobDescription);
+            return ViewComponent(nameof(Index), new { id = jobDescription.workID });
         }
 
         // GET: JobDescription/Delete/5
@@ -125,12 +136,14 @@ namespace ResumeApp.Controllers
             }
 
             var jobDescription = await _context.JobDescriptions
+                .Include(j => j.WorkExperience)
                 .SingleOrDefaultAsync(m => m.jobDescriptionId == id);
             if (jobDescription == null)
             {
                 return NotFound();
             }
-
+            ViewData["workID"] = jobDescription.workID;
+            id = jobDescription.jobDescriptionId;
             return View(jobDescription);
         }
 
@@ -142,7 +155,7 @@ namespace ResumeApp.Controllers
             var jobDescription = await _context.JobDescriptions.SingleOrDefaultAsync(m => m.jobDescriptionId == id);
             _context.JobDescriptions.Remove(jobDescription);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Index), new { id = jobDescription.workID });
         }
 
         private bool JobDescriptionExists(int id)

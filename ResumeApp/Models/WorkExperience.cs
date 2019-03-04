@@ -13,20 +13,31 @@ namespace ResumeApp.Models
         public int applicantID { get; set; }
 
         [Required]
+        [Display(Name = "Employer")]
         public string employer { get; set; }
 
         [Required]
+        [Display(Name = "Start Date")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:MM-dd-yyyy}", ApplyFormatInEditMode = true)]
         public DateTime startDate { get; set; }
+
+        [Display(Name = "End Date")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:MM-dd-yyyy}", ApplyFormatInEditMode = true)]
         public DateTime endDate { get; set; }
 
         [Required]
+        [Display(Name = "City")]
         public string city { get; set; }
 
         [Required]
+        [Display(Name = "State")]
         public string state { get; set; }
+
         [Required]
+        [Display(Name = "Job Title")]
         public string jobTitle { get; set; }
-        public int jobDescriptionId { get; set; }
         public bool isStillEmployed { get; set; }
 
         //navigational properties

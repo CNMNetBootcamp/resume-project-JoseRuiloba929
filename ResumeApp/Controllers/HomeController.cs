@@ -1,17 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using ResumeApp.Data;
 using ResumeApp.Models;
+using static Microsoft.AspNetCore.Hosting.Internal.HostingApplication;
 
 namespace ResumeApp.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+       
+        public  IActionResult Index()
         {
+
             return View();
         }
 

@@ -12,10 +12,10 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.applicantID)
+            @Html.DisplayNameFor(model => model.sortOrder)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.applicantID)
+            @Html.DisplayFor(model => model.sortOrder)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.ProfSum)
@@ -24,10 +24,9 @@
             @Html.DisplayFor(model => model.ProfSum)
         </dd>
     </dl>
-    
+    <input type="hidden" asp-for="profSummaryID" />
     <form asp-action="Delete">
-        <input type="hidden" asp-for="profSummaryID" />
-        <input type="submit" value="Delete" class="btn btn-default" /> |
-        <a asp-action="Index">Back to List</a>
+        <input type="submit" value="Delete" class="btn btn-default"/> |
+        <a asp-action="Index" asp-route-id="@ViewData["UsrID"]" >Back to List</a>
     </form>
 </div>

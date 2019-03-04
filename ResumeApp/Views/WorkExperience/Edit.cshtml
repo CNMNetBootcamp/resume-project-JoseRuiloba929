@@ -13,11 +13,7 @@
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="workID" />
-            <div class="form-group">
-                <label asp-for="applicantID" class="control-label"></label>
-                <input asp-for="applicantID" class="form-control" />
-                <span asp-validation-for="applicantID" class="text-danger"></span>
-            </div>
+            <input type="hidden" asp-for="applicantID" />
             <div class="form-group">
                 <label asp-for="employer" class="control-label"></label>
                 <input asp-for="employer" class="form-control" />
@@ -49,11 +45,6 @@
                 <span asp-validation-for="jobTitle" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="jobDescriptionId" class="control-label"></label>
-                <input asp-for="jobDescriptionId" class="form-control" />
-                <span asp-validation-for="jobDescriptionId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
                 <div class="checkbox">
                     <label>
                         <input asp-for="isStillEmployed" /> @Html.DisplayNameFor(model => model.isStillEmployed)
@@ -68,7 +59,7 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index" asp-route-id="@ViewData["UsrID"]" >Back to List</a>
 </div>
 
 @section Scripts {

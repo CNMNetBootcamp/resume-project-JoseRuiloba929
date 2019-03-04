@@ -11,10 +11,10 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.applicantID)
+            @Html.DisplayNameFor(model => model.sortOrder)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.applicantID)
+            @Html.DisplayFor(model => model.sortOrder)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.ProfSum)
@@ -26,5 +26,5 @@
 </div>
 <div>
     <a asp-action="Edit" asp-route-id="@Model.profSummaryID">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index" asp-route-id="@ViewData["UsrID"]" >Back to List</a>
 </div>

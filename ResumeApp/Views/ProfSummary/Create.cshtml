@@ -9,28 +9,29 @@
 <h4>ProfSummary</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
+    <div >
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="applicantID" class="control-label"></label>
-                <input asp-for="applicantID" class="form-control" />
-                <span asp-validation-for="applicantID" class="text-danger"></span>
+            <input type="hidden" asp-for="applicantID" value="@ViewData["UsrID"]"/>
+            <div class="form-group col-md-4" >
+                <label asp-for="sortOrder" class="control-label"></label>
+                <input asp-for="sortOrder" class="form-control" />
+                <span asp-validation-for="sortOrder" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group col">
                 <label asp-for="ProfSum" class="control-label"></label>
                 <input asp-for="ProfSum" class="form-control" />
                 <span asp-validation-for="ProfSum" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Create" class="btn btn-default" asp-route-id="@ViewData["UsrID"]"/>
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index" asp-route-id="@ViewData["UsrID"]" >Back to List</a>
 </div>
 
 @section Scripts {

@@ -20,9 +20,11 @@ namespace ResumeApp.Controllers
         }
 
         // GET: WorkExperience
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int id)
         {
-            return View(await _context.WorkExperiences.ToListAsync());
+            var jobContext = _context.WorkExperiences.Include(w => w.Submitter);
+            ViewData["UsrID"] = id;
+            return View(await jobContext.ToListAsync());
         }
 
         // GET: WorkExperience/Details/5
@@ -34,18 +36,20 @@ namespace ResumeApp.Controllers
             }
 
             var workExperience = await _context.WorkExperiences
+                .Include(w => w.Submitter)
                 .SingleOrDefaultAsync(m => m.workID == id);
             if (workExperience == null)
             {
                 return NotFound();
             }
-
+            ViewData["UsrID"] = workExperience.applicantID;
             return View(workExperience);
         }
 
         // GET: WorkExperience/Create
-        public IActionResult Create()
+        public IActionResult Create(int id)
         {
+            ViewData["UsrID"] = id;
             return View();
         }
 
@@ -54,15 +58,16 @@ namespace ResumeApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("workID,applicantID,employer,startDate,endDate,city,state,jobTitle,jobDescriptionId,isStillEmployed")] WorkExperience workExperience)
+        public async Task<IActionResult> Create([Bind("workID,applicantID,employer,startDate,endDate,city,state,jobTitle,isStillEmployed")] WorkExperience workExperience)
         {
+            ViewData["UsrID"] = workExperience.applicantID;
             if (ModelState.IsValid)
             {
                 _context.Add(workExperience);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index), new { id = workExperience.applicantID });
             }
-            return View(workExperience);
+            return ViewComponent(nameof(Index), new { id = workExperience.applicantID });
         }
 
         // GET: WorkExperience/Edit/5
@@ -78,6 +83,7 @@ namespace ResumeApp.Controllers
             {
                 return NotFound();
             }
+            ViewData["UsrID"] = workExperience.applicantID;
             return View(workExperience);
         }
 
@@ -86,7 +92,7 @@ namespace ResumeApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("workID,applicantID,employer,startDate,endDate,city,state,jobTitle,jobDescriptionId,isStillEmployed")] WorkExperience workExperience)
+        public async Task<IActionResult> Edit(int id, [Bind("workID,applicantID,employer,startDate,endDate,city,state,jobTitle,isStillEmployed")] WorkExperience workExperience)
         {
             if (id != workExperience.workID)
             {
@@ -111,8 +117,9 @@ namespace ResumeApp.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index), new { id = workExperience.applicantID });
             }
+            ViewData["UsrID"] = workExperience.applicantID;
             return View(workExperience);
         }
 
@@ -125,12 +132,14 @@ namespace ResumeApp.Controllers
             }
 
             var workExperience = await _context.WorkExperiences
+                .Include(w => w.Submitter)
                 .SingleOrDefaultAsync(m => m.workID == id);
             if (workExperience == null)
             {
                 return NotFound();
             }
-
+            id = workExperience.workID;
+            ViewData["UsrID"] = workExperience.applicantID;
             return View(workExperience);
         }
 
@@ -140,9 +149,10 @@ namespace ResumeApp.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var workExperience = await _context.WorkExperiences.SingleOrDefaultAsync(m => m.workID == id);
+            ViewData["UsrID"] = workExperience.applicantID;
             _context.WorkExperiences.Remove(workExperience);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Index), new { id = workExperience.applicantID });
         }
 
         private bool WorkExperienceExists(int id)

@@ -4,17 +4,17 @@
     ViewData["Title"] = "Index";
 }
 
-<h2>Index</h2>
+<h2>References</h2>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" asp-route-id="@ViewData["UsrID"]">Create New</a>
+</p>
+<p>
+    Note: Names are real but for demostration purposes the numbers and email address are not
 </p>
 <table class="table">
     <thead>
         <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.applicantID)
-                </th>
                 <th>
                     @Html.DisplayNameFor(model => model.referenceName)
                 </th>
@@ -31,7 +31,7 @@
                     @Html.DisplayNameFor(model => model.relationshipType)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.yrsKnown)
+                    @Html.DisplayNameFor(model => model.YKnown)
                 </th>
             <th></th>
         </tr>
@@ -39,9 +39,6 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.applicantID)
-            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.referenceName)
             </td>
@@ -58,7 +55,7 @@
                 @Html.DisplayFor(modelItem => item.relationshipType)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.yrsKnown)
+                @Html.DisplayFor(modelItem => item.YKnown)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.referenceID">Edit</a> |
@@ -69,3 +66,4 @@
 }
     </tbody>
 </table>
+<a asp-controller="Submitter" asp-action="Index">Return to Applicant Screen</a>

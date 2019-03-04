@@ -12,11 +12,7 @@
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="applicantID" class="control-label"></label>
-                <input asp-for="applicantID" class="form-control" />
-                <span asp-validation-for="applicantID" class="text-danger"></span>
-            </div>
+            <input type="hidden" asp-for="applicantID" value="@ViewData["UsrID"]" />
             <div class="form-group">
                 <label asp-for="referenceName" class="control-label"></label>
                 <input asp-for="referenceName" class="form-control" />
@@ -38,24 +34,20 @@
                 <span asp-validation-for="firstMet" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="relationshipType" class="control-label"></label>
-                <input asp-for="relationshipType" class="form-control" />
+                <select asp-for="relationshipType" asp-items="Html.GetEnumSelectList<relationType>()">
+                    <option selected="selected" value="">Please select type</option>
+                </select>
                 <span asp-validation-for="relationshipType" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="yrsKnown" class="control-label"></label>
-                <input asp-for="yrsKnown" class="form-control" />
-                <span asp-validation-for="yrsKnown" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Create" class="btn btn-default" asp-route-id="@ViewData["UsrID"]" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index"asp-route-id="@ViewData["UsrID"]">Back to List</a>
 </div>
 
 @section Scripts {

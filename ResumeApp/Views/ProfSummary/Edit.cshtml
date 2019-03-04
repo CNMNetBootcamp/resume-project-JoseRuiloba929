@@ -9,20 +9,27 @@
 <h4>ProfSummary</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
+    <div>
         <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="profSummaryID" />
-            <div class="form-group">
-                <label asp-for="applicantID" class="control-label"></label>
-                <input asp-for="applicantID" class="form-control" />
-                <span asp-validation-for="applicantID" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ProfSum" class="control-label"></label>
-                <input asp-for="ProfSum" class="form-control" />
-                <span asp-validation-for="ProfSum" class="text-danger"></span>
-            </div>
+            
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="profSummaryID" />
+                <input type="hidden" asp-for="applicantID" />
+                <div class="col-md-1">
+                    <div class="form-group">
+                        <label asp-for="sortOrder" class="control-label"></label>
+                        <input asp-for="sortOrder" class="form-control" />
+                        <span asp-validation-for="sortOrder" class="text-danger"></span>
+                    </div>
+                </div>
+            <br/>
+                <div class="col">
+                    <div class="form-group">
+                        <label asp-for="ProfSum" class="control-label"></label>
+                        <input asp-for="ProfSum" class="form-control" />
+                        <span asp-validation-for="ProfSum" class="text-danger"></span>
+                    </div>
+                </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-default" />
             </div>
@@ -31,7 +38,7 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index" asp-route-id="@ViewData["UsrID"]" >Back to List</a>
 </div>
 
 @section Scripts {

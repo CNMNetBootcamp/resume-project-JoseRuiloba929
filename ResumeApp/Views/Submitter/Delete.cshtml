@@ -41,10 +41,22 @@
         <dd>
             @Html.DisplayFor(model => model.state)
         </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.submitterPhone)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.submitterPhone)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.submitterEmail)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.submitterEmail)
+        </dd>
     </dl>
     
     <form asp-action="Delete">
-        <input type="hidden" asp-for="submitterID" />
+        <input type="hidden" asp-for="applicantID" />
         <input type="submit" value="Delete" class="btn btn-default" /> |
         <a asp-action="Index">Back to List</a>
     </form>

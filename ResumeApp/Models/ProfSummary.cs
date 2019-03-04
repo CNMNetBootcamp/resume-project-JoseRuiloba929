@@ -11,7 +11,11 @@ namespace ResumeApp.Models
         [Key]
         public int profSummaryID { get; set; }
         public int applicantID { get; set; }
+
+        [Display(Name = "Sort Order")]
+        public int sortOrder { get; set; }
         
+        [Display(Name ="Professional Summary")]
         public string ProfSum { get; set; }
 
         //navigational properties

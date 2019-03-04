@@ -1,0 +1,234 @@
+﻿@model ResumeApp.Models.Submitter
+@{
+        ViewData["Title"] = "Resume Page";
+    }
+<h1></h1>
+<div class="table">
+    <div class="row">
+        <br /><br /><br /><br />
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <dl class="dl-horizontal">
+                <dd>
+                    <h5><strong>@Html.DisplayFor(model => model.FullName)</strong></h5>
+                </dd>
+                <dd>
+                    <h5> @Html.DisplayFor(model => model.city),  @Html.DisplayFor(model => model.state)</h5>
+                </dd>
+            </dl>
+        </div>
+        <div class="col-md-4">
+
+        </div>
+        <div class="col-md-4">
+            <dl class="dl-horizontal">
+                <dd>
+                    @Html.DisplayFor(model => model.submitterEmail)
+                </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.submitterPhone)
+                </dd>
+            </dl>
+        </div>
+    </div>
+    <div class="row">
+        <hr style="height: 10px;background-color:#666;">
+    </div>
+    <div class="row" style="text-align:center">
+        <h4><strong>Summary</strong></h4>
+    </div>
+    <div class="row">
+        @foreach (var profSummaries in Model.ProfSummaries.OrderBy(y => y.sortOrder))
+        {
+            <ul>
+                <li>
+                    @Html.DisplayFor(modelItem => profSummaries.ProfSum)
+                </li>
+            </ul>
+        }
+    </div>
+    <div class="row">
+        <hr style="height: 10px;background-color:#ffffff;">
+    </div>
+    <div class="row" style="text-align:center">
+        <h4><strong>Technical Skills</strong></h4>
+    </div>
+    <div class="row"><strong>Software</strong></div>
+    <div class="row">
+        @foreach (var skillsets in Model.SkillSets.OrderBy(y => y.sortOrder).Where(y => y.skillsetType == 0))
+        {
+            <ul>
+                <li>
+                    @Html.DisplayFor(modelItem => skillsets.skillSetRecord)
+                </li>
+            </ul>
+        }
+    </div>
+    <div class="row"><strong>Programming</strong></div>
+    <div class="row">
+        @foreach (var skillsets in Model.SkillSets.OrderBy(y => y.sortOrder).Where(y => y.skillsetType != 0))
+        {
+            <ul>
+                <li>
+                    @Html.DisplayFor(modelItem => skillsets.skillSetRecord)
+                </li>
+            </ul>
+        }
+    </div>
+    <div class="row"><br /><br /> </div>
+    <div class="row" style="text-align:center">
+        <h4><strong>Professional Experience</strong></h4>
+    </div>
+    <div>
+        @foreach (var wkExperiences in Model.WorkExperiences.OrderByDescending(y => y.endDate))
+        {
+            <div class="row">
+                <div class="col-md-3">
+                    <dl>
+                        <dd>
+                            @Html.DisplayFor(modelItem => wkExperiences.employer), @Html.DisplayFor(modelItem => wkExperiences.city),@Html.DisplayFor(modelItem => wkExperiences.state)
+                        </dd>
+                        <dd>
+                            @Html.DisplayFor(modelItem => wkExperiences.jobTitle)
+                        </dd>
+                    </dl>
+                </div>
+                <div class="col-md-6"></div>
+                <div class="col-md-3">
+                    <dl class="b">
+                        <dd>
+                            @Html.Raw(wkExperiences.startDate.ToString("MM/yyyy"))-  @Html.Raw(wkExperiences.endDate.ToString("MM/yyyy"))
+                        </dd>
+                    </dl> 
+                </div>
+            </div>
+            <div class="row">
+                @foreach (var jobdescriptions in wkExperiences.jobDescriptions.OrderBy(y => y.sortOrder))
+                {
+                    @Html.DisplayFor(modelItem => jobdescriptions.jobExperience)<br />
+                }
+                <br /> <br />
+
+            </div>
+        }
+        
+    </div>
+       
+        <div class="row" style="text-align:center">
+            <h4><strong>Education</strong></h4>
+        </div>
+        <div class="row">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                        </th>
+                        <th>
+                        </th>
+                        <th>
+                        </th>
+                        <th>
+                        </th>
+                        <th>
+                        </th>
+                        <th>
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var education in Model.Educations.OrderByDescending(y => y.enddate))
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => education.schoolName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => education.schoolCity) , @Html.DisplayFor(modelItem => education.schoolState)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => education.educationlevelId)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => education.fieldofStudy)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => education.startdate.Date)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => education.enddate.Date)
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="row" style="text-align:center">
+            <h4><strong>References</strong></h4>
+        </div>
+    <div>Note:  The references and yrs know are real but the phone numbers and email addresses are not.  This is due to respecting my references privacy.  If you want the contact information please feel free to contact me.</div>
+        <br />
+        <div class="row">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            Name
+                        </th>
+                        <th>
+                            Phone
+                        </th>
+                        <th>
+                            Email
+                        </th>
+                        <th>
+                            Relationship
+                        </th>
+                        <th>
+
+                        </th>
+                        <th>
+                            Years Known
+                        </th>
+                        <th></th>
+                    </tr>
+                    <tr>
+                        @foreach (var references in Model.References.OrderByDescending(y => y.firstMet))
+                        {
+
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => references.referenceName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => references.referencePhone)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => references.referenceEmail)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => references.firstMet)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => references.relationshipType)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => references.YKnown) yrs
+                            </td>
+                        </tr>
+                    }
+                    </thead>
+                </table>
+
+
+
+            </div>
+        </div>
+
+
+
+
+
+
+

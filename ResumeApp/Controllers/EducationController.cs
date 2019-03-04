@@ -20,8 +20,9 @@ namespace ResumeApp.Controllers
         }
 
         // GET: Education
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int id)
         {
+            ViewData["UsrID"] = id;
             return View(await _context.Educations.ToListAsync());
         }
 
@@ -39,13 +40,14 @@ namespace ResumeApp.Controllers
             {
                 return NotFound();
             }
-
+            ViewData["UsrID"] = education.applicantID;
             return View(education);
         }
 
         // GET: Education/Create
-        public IActionResult Create()
+        public IActionResult Create(int id)
         {
+            ViewData["UsrID"] = id;
             return View();
         }
 
@@ -60,9 +62,10 @@ namespace ResumeApp.Controllers
             {
                 _context.Add(education);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                ViewData["UsrID"] = education.applicantID;
+                return RedirectToAction(nameof(Index), new { id = education.applicantID });
             }
-            return View(education);
+            return ViewComponent(nameof(Index), new { id = education.applicantID });
         }
 
         // GET: Education/Edit/5
@@ -74,10 +77,12 @@ namespace ResumeApp.Controllers
             }
 
             var education = await _context.Educations.SingleOrDefaultAsync(m => m.educationID == id);
+            
             if (education == null)
             {
                 return NotFound();
             }
+            ViewData["UsrID"] = education.applicantID;
             return View(education);
         }
 
@@ -92,7 +97,7 @@ namespace ResumeApp.Controllers
             {
                 return NotFound();
             }
-
+            ViewData["UsrID"] = education.applicantID;
             if (ModelState.IsValid)
             {
                 try
@@ -111,9 +116,9 @@ namespace ResumeApp.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index), new { id = education.applicantID });
             }
-            return View(education);
+            return ViewComponent(nameof(Index), new { id = education.applicantID });
         }
 
         // GET: Education/Delete/5
@@ -130,7 +135,8 @@ namespace ResumeApp.Controllers
             {
                 return NotFound();
             }
-
+            ViewData["UsrID"] = education.applicantID;
+            id = education.educationID;
             return View(education);
         }
 
@@ -142,7 +148,7 @@ namespace ResumeApp.Controllers
             var education = await _context.Educations.SingleOrDefaultAsync(m => m.educationID == id);
             _context.Educations.Remove(education);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Index), new { id = education.applicantID });
         }
 
         private bool EducationExists(int id)

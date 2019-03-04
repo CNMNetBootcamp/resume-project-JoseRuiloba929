@@ -20,8 +20,9 @@ namespace ResumeApp.Controllers
         }
 
         // GET: SkillSet
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int id)
         {
+            ViewData["UsrID"] = id;
             return View(await _context.SkillSets.ToListAsync());
         }
 
@@ -35,6 +36,7 @@ namespace ResumeApp.Controllers
 
             var skillSet = await _context.SkillSets
                 .SingleOrDefaultAsync(m => m.skillsetID == id);
+            ViewData["UsrID"] = skillSet.applicantID;
             if (skillSet == null)
             {
                 return NotFound();
@@ -44,8 +46,9 @@ namespace ResumeApp.Controllers
         }
 
         // GET: SkillSet/Create
-        public IActionResult Create()
+        public IActionResult Create(int id)
         {
+            ViewData["UsrID"] = id;
             return View();
         }
 
@@ -60,9 +63,9 @@ namespace ResumeApp.Controllers
             {
                 _context.Add(skillSet);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index), new { id = skillSet.applicantID });
             }
-            return View(skillSet);
+            return ViewComponent("skillSet", new { id = skillSet.applicantID });
         }
 
         // GET: SkillSet/Edit/5
@@ -78,6 +81,7 @@ namespace ResumeApp.Controllers
             {
                 return NotFound();
             }
+            @ViewData["UsrID"] = skillSet.applicantID;
             return View(skillSet);
         }
 
@@ -88,6 +92,7 @@ namespace ResumeApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("skillsetID,applicantID,skillsetType,skillSetRecord")] SkillSet skillSet)
         {
+            ViewData["UsrID"] = skillSet.applicantID;
             if (id != skillSet.skillsetID)
             {
                 return NotFound();
@@ -111,9 +116,10 @@ namespace ResumeApp.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                
+                return RedirectToAction(nameof(Index), new { id = skillSet.applicantID });
             }
-            return View(skillSet);
+            return ViewComponent("skillSet", new { id = skillSet.applicantID });
         }
 
         // GET: SkillSet/Delete/5
@@ -130,7 +136,8 @@ namespace ResumeApp.Controllers
             {
                 return NotFound();
             }
-
+            ViewData["UsrID"] = skillSet.applicantID;
+            id = skillSet.skillsetID;
             return View(skillSet);
         }
 
@@ -142,7 +149,7 @@ namespace ResumeApp.Controllers
             var skillSet = await _context.SkillSets.SingleOrDefaultAsync(m => m.skillsetID == id);
             _context.SkillSets.Remove(skillSet);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Index), new { id = skillSet.applicantID });
         }
 
         private bool SkillSetExists(int id)

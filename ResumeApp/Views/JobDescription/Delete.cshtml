@@ -12,6 +12,12 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
+            @Html.DisplayNameFor(model => model.sortOrder)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.sortOrder)
+        </dd>
+        <dt>
             @Html.DisplayNameFor(model => model.jobExperience)
         </dt>
         <dd>
@@ -21,7 +27,8 @@
     
     <form asp-action="Delete">
         <input type="hidden" asp-for="jobDescriptionId" />
-        <input type="submit" value="Delete" class="btn btn-default" /> |
-        <a asp-action="Index">Back to List</a>
+        <input type="submit" value="Delete" class="btn btn-default" asp-route-id="@ViewData["workID"]" /> |
+        <a asp-action="Index" asp-route-id="@ViewData["workID"]">Back to List</a>
     </form>
 </div>
+

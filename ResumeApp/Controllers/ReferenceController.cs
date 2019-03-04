@@ -20,8 +20,9 @@ namespace ResumeApp.Controllers
         }
 
         // GET: Reference
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int Id)
         {
+            ViewData["UsrID"] = Id;
             return View(await _context.References.ToListAsync());
         }
 
@@ -39,13 +40,14 @@ namespace ResumeApp.Controllers
             {
                 return NotFound();
             }
-
+            ViewData["UsrID"] = reference.applicantID;
             return View(reference);
         }
 
         // GET: Reference/Create
-        public IActionResult Create()
+        public IActionResult Create(int Id)
         {
+            ViewData["UsrID"] = Id;
             return View();
         }
 
@@ -60,9 +62,9 @@ namespace ResumeApp.Controllers
             {
                 _context.Add(reference);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index), new { id = reference.applicantID });
             }
-            return View(reference);
+            return ViewComponent(nameof(Create), new { id = reference.applicantID });
         }
 
         // GET: Reference/Edit/5
@@ -78,6 +80,7 @@ namespace ResumeApp.Controllers
             {
                 return NotFound();
             }
+            ViewData["UsrID"] = reference.applicantID;
             return View(reference);
         }
 
@@ -111,9 +114,9 @@ namespace ResumeApp.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index), new { id = reference.applicantID });
             }
-            return View(reference);
+            return ViewComponent(nameof(Index), new { id = reference.applicantID });
         }
 
         // GET: Reference/Delete/5
@@ -130,7 +133,8 @@ namespace ResumeApp.Controllers
             {
                 return NotFound();
             }
-
+            ViewData["UsrID"] = reference.applicantID;
+            id = reference.referenceID;
             return View(reference);
         }
 
@@ -142,7 +146,7 @@ namespace ResumeApp.Controllers
             var reference = await _context.References.SingleOrDefaultAsync(m => m.referenceID == id);
             _context.References.Remove(reference);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Index), new { id = reference.applicantID });
         }
 
         private bool ReferenceExists(int id)

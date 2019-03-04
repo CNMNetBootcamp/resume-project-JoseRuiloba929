@@ -12,12 +12,6 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.applicantID)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.applicantID)
-        </dd>
-        <dt>
             @Html.DisplayNameFor(model => model.employer)
         </dt>
         <dd>
@@ -54,22 +48,16 @@
             @Html.DisplayFor(model => model.jobTitle)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.jobDescriptionId)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.jobDescriptionId)
-        </dd>
-        <dt>
             @Html.DisplayNameFor(model => model.isStillEmployed)
         </dt>
         <dd>
             @Html.DisplayFor(model => model.isStillEmployed)
         </dd>
-    </dl>
+     </dl>
     
     <form asp-action="Delete">
         <input type="hidden" asp-for="workID" />
         <input type="submit" value="Delete" class="btn btn-default" /> |
-        <a asp-action="Index">Back to List</a>
+        <a asp-action="Index" asp-route-id="@ViewData["UsrID"]">Back to List</a>
     </form>
 </div>

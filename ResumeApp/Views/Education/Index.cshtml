@@ -4,17 +4,14 @@
     ViewData["Title"] = "Index";
 }
 
-<h2>Index</h2>
+<h2>Education</h2>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" asp-route-id="@ViewData["UsrID"]">Create New</a>
 </p>
 <table class="table">
     <thead>
-        <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.applicantID)
-                </th>
+            <tr>
                 <th>
                     @Html.DisplayNameFor(model => model.schoolName)
                 </th>
@@ -42,9 +39,6 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.applicantID)
-            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.schoolName)
             </td>
@@ -75,3 +69,4 @@
 }
     </tbody>
 </table>
+<a asp-controller="Submitter" asp-action="Index" asp-route-id="@ViewData["UsrID"]">Return to Applicant Screen</a>

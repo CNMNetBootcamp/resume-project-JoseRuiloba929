@@ -13,17 +13,19 @@ namespace ResumeApp.Migrations
                 name: "Submitter",
                 columns: table => new
                 {
-                    submitterID = table.Column<int>(nullable: false)
+                    applicantID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     city = table.Column<string>(nullable: false),
                     firstName = table.Column<string>(nullable: false),
                     lastName = table.Column<string>(nullable: false),
                     midInitial = table.Column<string>(maxLength: 1, nullable: true),
-                    state = table.Column<string>(maxLength: 2, nullable: false)
+                    state = table.Column<string>(maxLength: 2, nullable: false),
+                    submitterEmail = table.Column<string>(nullable: true),
+                    submitterPhone = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Submitter", x => x.submitterID);
+                    table.PrimaryKey("PK_Submitter", x => x.applicantID);
                 });
 
             migrationBuilder.CreateTable(
@@ -39,18 +41,17 @@ namespace ResumeApp.Migrations
                     schoolCity = table.Column<string>(nullable: true),
                     schoolName = table.Column<string>(nullable: true),
                     schoolState = table.Column<string>(maxLength: 2, nullable: false),
-                    startdate = table.Column<DateTime>(nullable: false),
-                    submitterID = table.Column<int>(nullable: true)
+                    startdate = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Education", x => x.educationID);
                     table.ForeignKey(
-                        name: "FK_Education_Submitter_submitterID",
-                        column: x => x.submitterID,
+                        name: "FK_Education_Submitter_applicantID",
+                        column: x => x.applicantID,
                         principalTable: "Submitter",
-                        principalColumn: "submitterID",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "applicantID",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -61,17 +62,17 @@ namespace ResumeApp.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     ProfSum = table.Column<string>(nullable: true),
                     applicantID = table.Column<int>(nullable: false),
-                    submitterID = table.Column<int>(nullable: true)
+                    sortOrder = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ProfSummary", x => x.profSummaryID);
                     table.ForeignKey(
-                        name: "FK_ProfSummary_Submitter_submitterID",
-                        column: x => x.submitterID,
+                        name: "FK_ProfSummary_Submitter_applicantID",
+                        column: x => x.applicantID,
                         principalTable: "Submitter",
-                        principalColumn: "submitterID",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "applicantID",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -85,19 +86,17 @@ namespace ResumeApp.Migrations
                     referenceEmail = table.Column<string>(nullable: true),
                     referenceName = table.Column<string>(nullable: true),
                     referencePhone = table.Column<string>(nullable: true),
-                    relationshipType = table.Column<int>(nullable: false),
-                    submitterID = table.Column<int>(nullable: true),
-                    yrsKnown = table.Column<int>(nullable: false)
+                    relationshipType = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Reference", x => x.referenceID);
                     table.ForeignKey(
-                        name: "FK_Reference_Submitter_submitterID",
-                        column: x => x.submitterID,
+                        name: "FK_Reference_Submitter_applicantID",
+                        column: x => x.applicantID,
                         principalTable: "Submitter",
-                        principalColumn: "submitterID",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "applicantID",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -109,17 +108,17 @@ namespace ResumeApp.Migrations
                     applicantID = table.Column<int>(nullable: false),
                     skillSetRecord = table.Column<string>(nullable: true),
                     skillsetType = table.Column<int>(nullable: false),
-                    submitterID = table.Column<int>(nullable: true)
+                    sortOrder = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_SkillSet", x => x.skillsetID);
                     table.ForeignKey(
-                        name: "FK_SkillSet_Submitter_submitterID",
-                        column: x => x.submitterID,
+                        name: "FK_SkillSet_Submitter_applicantID",
+                        column: x => x.applicantID,
                         principalTable: "Submitter",
-                        principalColumn: "submitterID",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "applicantID",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -133,21 +132,19 @@ namespace ResumeApp.Migrations
                     employer = table.Column<string>(nullable: false),
                     endDate = table.Column<DateTime>(nullable: false),
                     isStillEmployed = table.Column<bool>(nullable: false),
-                    jobDescriptionId = table.Column<int>(nullable: false),
                     jobTitle = table.Column<string>(nullable: false),
                     startDate = table.Column<DateTime>(nullable: false),
-                    state = table.Column<string>(nullable: false),
-                    submitterID = table.Column<int>(nullable: true)
+                    state = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_WorkExperience", x => x.workID);
                     table.ForeignKey(
-                        name: "FK_WorkExperience_Submitter_submitterID",
-                        column: x => x.submitterID,
+                        name: "FK_WorkExperience_Submitter_applicantID",
+                        column: x => x.applicantID,
                         principalTable: "Submitter",
-                        principalColumn: "submitterID",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "applicantID",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -156,49 +153,50 @@ namespace ResumeApp.Migrations
                 {
                     jobDescriptionId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    WorkExperienceworkID = table.Column<int>(nullable: true),
-                    jobExperience = table.Column<string>(nullable: false)
+                    jobExperience = table.Column<string>(nullable: false),
+                    sortOrder = table.Column<int>(nullable: false),
+                    workID = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_JobDescription", x => x.jobDescriptionId);
                     table.ForeignKey(
-                        name: "FK_JobDescription_WorkExperience_WorkExperienceworkID",
-                        column: x => x.WorkExperienceworkID,
+                        name: "FK_JobDescription_WorkExperience_workID",
+                        column: x => x.workID,
                         principalTable: "WorkExperience",
                         principalColumn: "workID",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Education_submitterID",
+                name: "IX_Education_applicantID",
                 table: "Education",
-                column: "submitterID");
+                column: "applicantID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_JobDescription_WorkExperienceworkID",
+                name: "IX_JobDescription_workID",
                 table: "JobDescription",
-                column: "WorkExperienceworkID");
+                column: "workID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProfSummary_submitterID",
+                name: "IX_ProfSummary_applicantID",
                 table: "ProfSummary",
-                column: "submitterID");
+                column: "applicantID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Reference_submitterID",
+                name: "IX_Reference_applicantID",
                 table: "Reference",
-                column: "submitterID");
+                column: "applicantID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_SkillSet_submitterID",
+                name: "IX_SkillSet_applicantID",
                 table: "SkillSet",
-                column: "submitterID");
+                column: "applicantID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_WorkExperience_submitterID",
+                name: "IX_WorkExperience_applicantID",
                 table: "WorkExperience",
-                column: "submitterID");
+                column: "applicantID");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

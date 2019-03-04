@@ -13,14 +13,11 @@
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="skillsetID" />
+            <input type="hidden" asp-for="applicantID" value="@ViewData["UsrID"]" />
             <div class="form-group">
-                <label asp-for="applicantID" class="control-label"></label>
-                <input asp-for="applicantID" class="form-control" />
-                <span asp-validation-for="applicantID" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="skillsetType" class="control-label"></label>
-                <input asp-for="skillsetType" class="form-control" />
+                <select asp-for="skillsetType" asp-items="Html.GetEnumSelectList<skillCat>()">
+                    <option selected="selected" value="">Please select Type</option>
+                </select>
                 <span asp-validation-for="skillsetType" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -36,7 +33,7 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index" asp-route-id="@ViewData["UsrID"]">Back to List</a>
 </div>
 
 @section Scripts {

@@ -6,13 +6,14 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore.Storage.Internal;
 using ResumeApp.Data;
+using ResumeApp.Models;
 using System;
 
 namespace ResumeApp.Migrations
 {
     [DbContext(typeof(JobContext))]
-    [Migration("20190222033533_Initial")]
-    partial class Initial
+    [Migration("20190304170257_Secondary")]
+    partial class Secondary
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -44,11 +45,9 @@ namespace ResumeApp.Migrations
 
                     b.Property<DateTime>("startdate");
 
-                    b.Property<int?>("submitterID");
-
                     b.HasKey("educationID");
 
-                    b.HasIndex("submitterID");
+                    b.HasIndex("applicantID");
 
                     b.ToTable("Education");
                 });
@@ -58,14 +57,16 @@ namespace ResumeApp.Migrations
                     b.Property<int>("jobDescriptionId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int?>("WorkExperienceworkID");
-
                     b.Property<string>("jobExperience")
                         .IsRequired();
 
+                    b.Property<int>("sortOrder");
+
+                    b.Property<int>("workID");
+
                     b.HasKey("jobDescriptionId");
 
-                    b.HasIndex("WorkExperienceworkID");
+                    b.HasIndex("workID");
 
                     b.ToTable("JobDescription");
                 });
@@ -79,11 +80,11 @@ namespace ResumeApp.Migrations
 
                     b.Property<int>("applicantID");
 
-                    b.Property<int?>("submitterID");
+                    b.Property<int>("sortOrder");
 
                     b.HasKey("profSummaryID");
 
-                    b.HasIndex("submitterID");
+                    b.HasIndex("applicantID");
 
                     b.ToTable("ProfSummary");
                 });
@@ -105,13 +106,9 @@ namespace ResumeApp.Migrations
 
                     b.Property<int>("relationshipType");
 
-                    b.Property<int?>("submitterID");
-
-                    b.Property<int>("yrsKnown");
-
                     b.HasKey("referenceID");
 
-                    b.HasIndex("submitterID");
+                    b.HasIndex("applicantID");
 
                     b.ToTable("Reference");
                 });
@@ -127,18 +124,18 @@ namespace ResumeApp.Migrations
 
                     b.Property<int>("skillsetType");
 
-                    b.Property<int?>("submitterID");
+                    b.Property<int>("sortOrder");
 
                     b.HasKey("skillsetID");
 
-                    b.HasIndex("submitterID");
+                    b.HasIndex("applicantID");
 
                     b.ToTable("SkillSet");
                 });
 
             modelBuilder.Entity("ResumeApp.Models.Submitter", b =>
                 {
-                    b.Property<int>("submitterID")
+                    b.Property<int>("applicantID")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("city")
@@ -157,7 +154,11 @@ namespace ResumeApp.Migrations
                         .IsRequired()
                         .HasMaxLength(2);
 
-                    b.HasKey("submitterID");
+                    b.Property<string>("submitterEmail");
+
+                    b.Property<string>("submitterPhone");
+
+                    b.HasKey("applicantID");
 
                     b.ToTable("Submitter");
                 });
@@ -179,8 +180,6 @@ namespace ResumeApp.Migrations
 
                     b.Property<bool>("isStillEmployed");
 
-                    b.Property<int>("jobDescriptionId");
-
                     b.Property<string>("jobTitle")
                         .IsRequired();
 
@@ -189,11 +188,9 @@ namespace ResumeApp.Migrations
                     b.Property<string>("state")
                         .IsRequired();
 
-                    b.Property<int?>("submitterID");
-
                     b.HasKey("workID");
 
-                    b.HasIndex("submitterID");
+                    b.HasIndex("applicantID");
 
                     b.ToTable("WorkExperience");
                 });
@@ -202,42 +199,48 @@ namespace ResumeApp.Migrations
                 {
                     b.HasOne("ResumeApp.Models.Submitter", "Submitter")
                         .WithMany("Educations")
-                        .HasForeignKey("submitterID");
+                        .HasForeignKey("applicantID")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("ResumeApp.Models.JobDescription", b =>
                 {
                     b.HasOne("ResumeApp.Models.WorkExperience", "WorkExperience")
                         .WithMany("jobDescriptions")
-                        .HasForeignKey("WorkExperienceworkID");
+                        .HasForeignKey("workID")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("ResumeApp.Models.ProfSummary", b =>
                 {
                     b.HasOne("ResumeApp.Models.Submitter", "Submitter")
                         .WithMany("ProfSummaries")
-                        .HasForeignKey("submitterID");
+                        .HasForeignKey("applicantID")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("ResumeApp.Models.Reference", b =>
                 {
                     b.HasOne("ResumeApp.Models.Submitter", "Submitter")
                         .WithMany("References")
-                        .HasForeignKey("submitterID");
+                        .HasForeignKey("applicantID")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("ResumeApp.Models.SkillSet", b =>
                 {
                     b.HasOne("ResumeApp.Models.Submitter", "Submitter")
                         .WithMany("SkillSets")
-                        .HasForeignKey("submitterID");
+                        .HasForeignKey("applicantID")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("ResumeApp.Models.WorkExperience", b =>
                 {
                     b.HasOne("ResumeApp.Models.Submitter", "Submitter")
                         .WithMany("WorkExperiences")
-                        .HasForeignKey("submitterID");
+                        .HasForeignKey("applicantID")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

@@ -12,11 +12,7 @@
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="applicantID" class="control-label"></label>
-                <input asp-for="applicantID" class="form-control" />
-                <span asp-validation-for="applicantID" class="text-danger"></span>
-            </div>
+            <input type="hidden" asp-for="applicantID" value="@ViewData["UsrID"]" />
             <div class="form-group">
                 <label asp-for="schoolName" class="control-label"></label>
                 <input asp-for="schoolName" class="form-control" />
@@ -33,8 +29,9 @@
                 <span asp-validation-for="schoolState" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="educationlevelId" class="control-label"></label>
-                <input asp-for="educationlevelId" class="form-control" />
+                <select asp-for="educationlevelId" asp-items="Html.GetEnumSelectList<degree>()">
+                    <option selected="selected" value="">Please select Type</option>
+                </select>
                 <span asp-validation-for="educationlevelId" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -53,14 +50,14 @@
                 <span asp-validation-for="enddate" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Create" class="btn btn-default" asp-route-id="@ViewData["UsrID"]" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index" asp-route-id="@ViewData["UsrID"]">Back to List</a>
 </div>
 
 @section Scripts {

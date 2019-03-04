@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ResumeApp.Data;
 using ResumeApp.Models;
+using ResumeApp.Models.ResumeViewModels;
 
 namespace ResumeApp.Controllers
 {
@@ -20,9 +22,10 @@ namespace ResumeApp.Controllers
         }
 
         // GET: Submitter
+        [Authorize]
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Submitters.ToListAsync());
+            return View(await _context.Submitter.ToListAsync());
         }
 
         // GET: Submitter/Details/5
@@ -33,8 +36,8 @@ namespace ResumeApp.Controllers
                 return NotFound();
             }
 
-            var submitter = await _context.Submitters
-                .SingleOrDefaultAsync(m => m.submitterID == id);
+            var submitter = await _context.Submitter
+                .SingleOrDefaultAsync(m => m.applicantID == id);
             if (submitter == null)
             {
                 return NotFound();
@@ -54,7 +57,7 @@ namespace ResumeApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("submitterID,firstName,midInitial,lastName,city,state")] Submitter submitter)
+        public async Task<IActionResult> Create([Bind("applicantID,firstName,midInitial,lastName,city,state,submitterPhone,submitterEmail")] Submitter submitter)
         {
             if (ModelState.IsValid)
             {
@@ -73,7 +76,7 @@ namespace ResumeApp.Controllers
                 return NotFound();
             }
 
-            var submitter = await _context.Submitters.SingleOrDefaultAsync(m => m.submitterID == id);
+            var submitter = await _context.Submitter.SingleOrDefaultAsync(m => m.applicantID == id);
             if (submitter == null)
             {
                 return NotFound();
@@ -86,9 +89,9 @@ namespace ResumeApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("submitterID,firstName,midInitial,lastName,city,state")] Submitter submitter)
+        public async Task<IActionResult> Edit(int id, [Bind("applicantID,firstName,midInitial,lastName,city,state,submitterPhone,submitterEmail")] Submitter submitter)
         {
-            if (id != submitter.submitterID)
+            if (id != submitter.applicantID)
             {
                 return NotFound();
             }
@@ -102,7 +105,7 @@ namespace ResumeApp.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!SubmitterExists(submitter.submitterID))
+                    if (!SubmitterExists(submitter.applicantID))
                     {
                         return NotFound();
                     }
@@ -124,8 +127,8 @@ namespace ResumeApp.Controllers
                 return NotFound();
             }
 
-            var submitter = await _context.Submitters
-                .SingleOrDefaultAsync(m => m.submitterID == id);
+            var submitter = await _context.Submitter
+                .SingleOrDefaultAsync(m => m.applicantID == id);
             if (submitter == null)
             {
                 return NotFound();
@@ -139,15 +142,32 @@ namespace ResumeApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var submitter = await _context.Submitters.SingleOrDefaultAsync(m => m.submitterID == id);
-            _context.Submitters.Remove(submitter);
+            var submitter = await _context.Submitter.SingleOrDefaultAsync(m => m.applicantID == id);
+            _context.Submitter.Remove(submitter);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
+
+        // GET: Submitter/Resume/5
+        public IActionResult Resume()
+        {
+            var resumeData = _context.Submitter
+                .Include(m => m.ProfSummaries)
+                .Include(m => m.SkillSets)
+                .Include(m => m.WorkExperiences)
+                    .ThenInclude(m => m.jobDescriptions)
+                .Include(m => m.Educations)
+                .Include(m => m.References)
+                .AsNoTracking()
+                .FirstOrDefault(Submitters => Submitters.applicantID == 1);
+
+            return View(resumeData);
+        }
+
         private bool SubmitterExists(int id)
         {
-            return _context.Submitters.Any(e => e.submitterID == id);
+            return _context.Submitter.Any(e => e.applicantID == id);
         }
     }
 }

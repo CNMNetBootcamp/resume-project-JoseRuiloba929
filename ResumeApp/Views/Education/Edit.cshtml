@@ -13,11 +13,7 @@
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="educationID" />
-            <div class="form-group">
-                <label asp-for="applicantID" class="control-label"></label>
-                <input asp-for="applicantID" class="form-control" />
-                <span asp-validation-for="applicantID" class="text-danger"></span>
-            </div>
+            <input type="hidden" asp-for="applicantID" />
             <div class="form-group">
                 <label asp-for="schoolName" class="control-label"></label>
                 <input asp-for="schoolName" class="form-control" />
@@ -61,7 +57,7 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index" asp-route-id="@ViewData["UsrID"]">Back to List</a>
 </div>
 
 @section Scripts {

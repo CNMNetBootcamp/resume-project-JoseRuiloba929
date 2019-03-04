@@ -4,7 +4,7 @@
     ViewData["Title"] = "Index";
 }
 
-<h2>Index</h2>
+<h2>Resume Applicant</h2>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -26,6 +26,12 @@
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.state)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.submitterPhone)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.submitterEmail)
                 </th>
             <th></th>
         </tr>
@@ -49,9 +55,20 @@
                 @Html.DisplayFor(modelItem => item.state)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.submitterID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.submitterID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.submitterID">Delete</a>
+                @Html.DisplayFor(modelItem => item.submitterPhone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.submitterEmail)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.applicantID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.applicantID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.applicantID">Delete</a> <br/>
+                <a asp-area="" asp-controller="ProfSummary" asp-action="Index" asp-route-id="@item.applicantID">Prof Summary</a> |
+                <a asp-area="" asp-controller="SkillSet" asp-action="Index"asp-route-id="@item.applicantID">SkillSet</a> |
+                <a asp-area="" asp-controller="WorkExperience" asp-action="Index" asp-route-id="@item.applicantID">Experience</a> |
+                <a asp-area="" asp-controller="Education" asp-action="Index" asp-route-id="@item.applicantID">Education</a> |
+                <a asp-area="" asp-controller="Reference" asp-action="Index" asp-route-id="@item.applicantID">Reference</a>
             </td>
         </tr>
 }

@@ -7,19 +7,18 @@ using System.Threading.Tasks;
 
 namespace ResumeApp.Data
 {
-    public class JobContext:DbContext
+    public class JobContext : DbContext
     {
-        public JobContext(DbContextOptions<JobContext> options): base(options)
+        public JobContext(DbContextOptions<JobContext> options) : base(options)
         {
         }
-        public DbSet<Submitter> Submitters { get; set; }
+        public DbSet<Submitter> Submitter {get; set;}
+        public DbSet<ProfSummary> ProfSummary { get; set; }
         public DbSet<Education> Educations { get; set; }
-        public DbSet<JobDescription> JobDescriptions { get; set; }
-        public DbSet<ProfSummary> ProfSummaries { get; set; }
         public DbSet<Reference> References { get; set; }
         public DbSet<SkillSet> SkillSets { get; set; }
         public DbSet<WorkExperience> WorkExperiences { get; set; }
-
+         public DbSet<JobDescription> JobDescriptions { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Submitter>().ToTable("Submitter");
