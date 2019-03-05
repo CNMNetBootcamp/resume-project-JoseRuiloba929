@@ -38,11 +38,14 @@ namespace ResumeApp
 
             //this is the setup for authenication
             services.AddAuthentication()
-                .AddGoogle(y =>
-                {
-                    y.ClientId = Configuration["google:client_id"];
-                    y.ClientSecret = Configuration["google:client_secret"];
-                });
+                
+            .AddMicrosoftAccount(microsoftOptions =>
+            {
+                microsoftOptions.ClientId = Configuration["Microsoft:ApplicationId"];
+                microsoftOptions.ClientSecret = Configuration["Microsoft:Password"];
+            });
+
+
 
             //setting up security settings
             services.Configure<IdentityOptions>(options =>
