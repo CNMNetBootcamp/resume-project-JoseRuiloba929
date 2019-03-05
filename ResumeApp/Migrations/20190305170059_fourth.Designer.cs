@@ -12,9 +12,10 @@ using System;
 namespace ResumeApp.Migrations
 {
     [DbContext(typeof(JobContext))]
-    partial class JobContextModelSnapshot : ModelSnapshot
+    [Migration("20190305170059_fourth")]
+    partial class fourth
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

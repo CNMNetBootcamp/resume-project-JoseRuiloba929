@@ -29,6 +29,7 @@ namespace ResumeApp.Controllers
         }
 
         // GET: Submitter/Details/5
+        [Authorize]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -47,6 +48,7 @@ namespace ResumeApp.Controllers
         }
 
         // GET: Submitter/Create
+        [Authorize]
         public IActionResult Create()
         {
             return View();
@@ -69,6 +71,7 @@ namespace ResumeApp.Controllers
         }
 
         // GET: Submitter/Edit/5
+        [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -120,6 +123,7 @@ namespace ResumeApp.Controllers
         }
 
         // GET: Submitter/Delete/5
+        [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)

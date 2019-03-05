@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -20,6 +21,7 @@ namespace ResumeApp.Controllers
         }
 
         // GET: Education
+        [Authorize]
         public async Task<IActionResult> Index(int id)
         {
             ViewData["UsrID"] = id;
@@ -27,6 +29,7 @@ namespace ResumeApp.Controllers
         }
 
         // GET: Education/Details/5
+        [Authorize]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -45,6 +48,7 @@ namespace ResumeApp.Controllers
         }
 
         // GET: Education/Create
+        [Authorize]
         public IActionResult Create(int id)
         {
             ViewData["UsrID"] = id;
@@ -69,6 +73,7 @@ namespace ResumeApp.Controllers
         }
 
         // GET: Education/Edit/5
+        [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -122,6 +127,7 @@ namespace ResumeApp.Controllers
         }
 
         // GET: Education/Delete/5
+        [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)

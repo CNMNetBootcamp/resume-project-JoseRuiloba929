@@ -12,9 +12,10 @@ using System;
 namespace ResumeApp.Migrations
 {
     [DbContext(typeof(JobContext))]
-    partial class JobContextModelSnapshot : ModelSnapshot
+    [Migration("20190305075337_Third")]
+    partial class Third
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -138,16 +139,13 @@ namespace ResumeApp.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("city")
-                        .IsRequired()
-                        .HasMaxLength(30);
+                        .IsRequired();
 
                     b.Property<string>("firstName")
-                        .IsRequired()
-                        .HasMaxLength(20);
+                        .IsRequired();
 
                     b.Property<string>("lastName")
-                        .IsRequired()
-                        .HasMaxLength(30);
+                        .IsRequired();
 
                     b.Property<string>("midInitial")
                         .HasMaxLength(1);

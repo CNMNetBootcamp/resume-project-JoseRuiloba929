@@ -13,6 +13,7 @@ namespace ResumeApp.Models
 
         [Required]
         [Display(Name = "First Name")]
+        [StringLength(20, ErrorMessage = "The First Name cannot exceed 20 characters. ")]
         public string firstName { get; set; }
 
         [Display(Name = "Middle Initial")]
@@ -20,11 +21,13 @@ namespace ResumeApp.Models
         public string midInitial { get; set; }
 
         [Required]
+        [StringLength(30, ErrorMessage = "The First Name cannot exceed 30 characters. ")]
         [Display(Name = "Last Name")]
         public string lastName { get; set; }
 
         [Required]
         [Display(Name = "City")]
+        [StringLength(30, ErrorMessage = "The First Name cannot exceed 30 characters. ")]
         public string city { get; set; }
 
         [Required]
@@ -43,7 +46,7 @@ namespace ResumeApp.Models
         {
             get
             {
-                return firstName + " " + midInitial + " " + lastName;
+                return firstName.Trim() + " " + midInitial.Trim() + " " + lastName.Trim();
             }
         }
 

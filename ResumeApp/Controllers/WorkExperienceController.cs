@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -20,14 +21,16 @@ namespace ResumeApp.Controllers
         }
 
         // GET: WorkExperience
+        [Authorize]
         public async Task<IActionResult> Index(int id)
         {
-            var jobContext = _context.WorkExperiences.Include(w => w.Submitter);
+            var jobContext = _context.WorkExperiences.Include(w => w.Submitter).OrderByDescending(w=>w.endDate);
             ViewData["UsrID"] = id;
             return View(await jobContext.ToListAsync());
         }
 
         // GET: WorkExperience/Details/5
+        [Authorize]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -47,6 +50,7 @@ namespace ResumeApp.Controllers
         }
 
         // GET: WorkExperience/Create
+        [Authorize]
         public IActionResult Create(int id)
         {
             ViewData["UsrID"] = id;
@@ -71,6 +75,7 @@ namespace ResumeApp.Controllers
         }
 
         // GET: WorkExperience/Edit/5
+        [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -124,6 +129,7 @@ namespace ResumeApp.Controllers
         }
 
         // GET: WorkExperience/Delete/5
+        [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
